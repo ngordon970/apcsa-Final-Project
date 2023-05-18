@@ -12,25 +12,21 @@ import java.util.ResourceBundle;
 public class SceneController extends Calculations implements Initializable {
 
     @FXML
-    TextArea field;
+    private TextArea field;
     @FXML
-    Label timerLabel;
+    private Label timerLabel;
     @FXML
-    RadioButton button30s;
+    private RadioButton button30s, button60s, button180s;
     @FXML
-    RadioButton button60s;
+    private Label accuracyLabel;
     @FXML
-    RadioButton button180s;
+    private Label wpmLabel;
     @FXML
-    Label accuracyLabel;
+    private ChoiceBox<String> difficultyChoice;
     @FXML
-    Label wpmLabel;
+    private TextArea promptField;
     @FXML
-    ChoiceBox<String> difficultyChoice;
-    @FXML
-    TextArea promptField;
-    @FXML
-    Label difficultyLabel;
+    private Label difficultyLabel;
 
     private final String[] choices = {"Easy", "Medium", "Extreme"};
     private static int timeRemaining = 60;
@@ -63,6 +59,18 @@ public class SceneController extends Calculations implements Initializable {
         difficultyChoice.setValue("Easy");
         difficultyChoice.setOnAction(this::setDifficulty);
         difficultyLabel.setText(difficultyChoice.getValue());
+    }
+    public void setTimerLabel(int num) {
+        if(num < 60) {
+            if(num < 10) {
+                timerLabel.setText("0:0" + num);
+            } else timerLabel.setText("0:" + num);
+        }
+        else if(num % 60 == 0) {
+            timerLabel.setText((num / 60) + ":00");
+        } else if(num % 60 < 10) {
+            timerLabel.setText(num/60 + ":0" + num % 60);
+        } else timerLabel.setText(num/60 + ":" + num % 60);
     }
     public void beginTimer() {
         field.clear();
@@ -108,19 +116,6 @@ public class SceneController extends Calculations implements Initializable {
     public void button180sPressed() {
         minutes = 3.0;
         setTimerLabel(180);
-    }
-
-    public void setTimerLabel(int num) {
-        if(num < 60) {
-            if(num < 10) {
-                timerLabel.setText("0:0" + num);
-            } else timerLabel.setText("0:" + num);
-        }
-        else if(num % 60 == 0) {
-            timerLabel.setText((num / 60) + ":00");
-        } else if(num % 60 < 10) {
-            timerLabel.setText(num/60 + ":0" + num % 60);
-        } else timerLabel.setText(num/60 + ":" + num % 60);
     }
 
     public static String getUserContent() {
