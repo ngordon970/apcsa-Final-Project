@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.TextArea?>
@@ -15,6 +17,7 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.paint.Color?>
+<?import javafx.scene.paint.LinearGradient?>
 <?import javafx.scene.paint.RadialGradient?>
 <?import javafx.scene.paint.Stop?>
 <?import javafx.scene.shape.Rectangle?>
@@ -22,7 +25,12 @@
 
 <AnchorPane focusTraversable="true" prefHeight="818.0" prefWidth="1256.0" style="-fx-background-color: #1f1f1f;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.javafxproject.SceneController">
    <children>
-      <TextArea fx:id="field" layoutX="31.0" layoutY="444.0" prefHeight="355.0" prefWidth="1194.0" promptText="Begin typing here..." wrapText="true">
+      <TextArea fx:id="promptField" editable="false" focusTraversable="false" layoutX="31.0" layoutY="161.0" pickOnBounds="false" prefHeight="157.0" prefWidth="1194.0" style="-fx-control-inner-background: #1f1f1f; -fx-background-color: #1f1f1f; -fx-border-color: #1f1f1f; -fx-background-insets: 0; -fx-text-box-border: #1f1f1f; -fx-focus-color: #1f1f1f;" wrapText="true">
+         <font>
+            <Font name="Microsoft Tai Le" size="40.0" />
+         </font>
+      </TextArea>
+      <TextArea fx:id="field" focusTraversable="false" layoutX="31.0" layoutY="444.0" prefHeight="355.0" prefWidth="1194.0" promptText="Begin typing here..." style="-fx-control-inner-background: #292929; -fx-background-color: #292929; -fx-border-color: #292929; -fx-padding: 0; -fx-text-fill: #b8b8b8; -fx-prompt-text-fill: #b8b8b8; -fx-focus-color: #292929;" wrapText="true">
          <font>
             <Font name="Microsoft Tai Le" size="29.0" />
          </font>
@@ -30,19 +38,15 @@
             <Cursor fx:constant="TEXT" />
          </cursor>
          <effect>
-            <DropShadow>
-               <input>
-                  <DropShadow height="35.0" radius="17.0" spread="0.22" width="35.0">
-                     <color>
-                        <Color red="1.0" green="0.46666666865348816" blue="0.46666666865348816" />
-                     </color>
-                  </DropShadow>
-               </input>
+            <DropShadow height="50.0" radius="24.5" width="50.0">
                <color>
-                  <Color red="0.2368421107530594" green="0.2368421107530594" blue="0.2368421107530594" />
+                  <Color red="1.0" green="0.4699999988079071" blue="0.4699999988079071" />
                </color>
             </DropShadow>
          </effect>
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
       </TextArea>
       <Button layoutX="30.0" layoutY="26.0" mnemonicParsing="false" onAction="#testingTimer" prefHeight="27.0" prefWidth="125.0" text="test run" visible="false">
          <font>
@@ -54,11 +58,16 @@
             <Font name="Impact" size="36.0" />
          </font>
          <textFill>
-            <RadialGradient centerX="0.5" centerY="0.5" focusAngle="-90.0" radius="0.9597701149425287">
+            <RadialGradient centerX="0.5" centerY="0.5" focusAngle="-90.0" radius="0.8160919540229885">
                <stops>
                   <Stop>
                      <color>
-                        <Color red="1.0" green="0.46666666865348816" blue="0.46666666865348816" />
+                        <Color red="0.1184210553765297" green="0.1184210553765297" blue="0.1184210553765297" />
+                     </color>
+                  </Stop>
+                  <Stop offset="0.006711409395973154">
+                     <color>
+                        <Color red="1.0" green="1.0" blue="1.0" />
                      </color>
                   </Stop>
                   <Stop offset="1.0">
@@ -70,7 +79,7 @@
             </RadialGradient>
          </textFill>
       </Label>
-      <RadioButton fx:id="button30s" layoutX="915.0" layoutY="407.0" mnemonicParsing="false" onAction="#button30sPressed" style="-fx-font-size: 14; -fx-font-family: IMPACT;" text="30s" textFill="#ff7878">
+      <RadioButton fx:id="button30s" layoutX="915.0" layoutY="405.0" mnemonicParsing="false" onAction="#button30sPressed" style="-fx-font-size: 14; -fx-font-family: IMPACT;" text="30s" textFill="#ff7878">
          <toggleGroup>
             <ToggleGroup fx:id="minuteMode" />
          </toggleGroup>
@@ -78,9 +87,9 @@
             <Font name="BOUTON International Symbols" size="12.0" />
          </font>
       </RadioButton>
-      <RadioButton fx:id="button60s" layoutX="1000.0" layoutY="407.0" mnemonicParsing="false" onAction="#button60sPressed" selected="true" style="-fx-font-family: IMPACT; -fx-font-size: 14;" text="60s" textFill="#ff7878" toggleGroup="$minuteMode" />
-      <RadioButton fx:id="button180s" layoutX="1079.0" layoutY="407.0" mnemonicParsing="false" onAction="#button180sPressed" style="-fx-font-family: IMPACT; -fx-font-size: 14;" text="180s" textFill="#ff7878" toggleGroup="$minuteMode" />
-      <Button fx:id="startButton" alignment="CENTER" contentDisplay="CENTER" layoutX="29.0" layoutY="402.0" mnemonicParsing="false" onAction="#beginTimer" prefHeight="28.0" prefWidth="58.0" style="-fx-text-fill: white; -fx-background-color: gray; -fx-background-radius: 10;" text="START">
+      <RadioButton fx:id="button60s" layoutX="1000.0" layoutY="405.0" mnemonicParsing="false" onAction="#button60sPressed" selected="true" style="-fx-font-family: IMPACT; -fx-font-size: 14;" text="60s" textFill="#ff7878" toggleGroup="$minuteMode" />
+      <RadioButton fx:id="button180s" layoutX="1079.0" layoutY="405.0" mnemonicParsing="false" onAction="#button180sPressed" style="-fx-font-family: IMPACT; -fx-font-size: 14;" text="180s" textFill="#ff7878" toggleGroup="$minuteMode" />
+      <Button fx:id="startButton" alignment="CENTER" contentDisplay="CENTER" layoutX="29.0" layoutY="399.0" mnemonicParsing="false" onAction="#beginTimer" prefHeight="28.0" prefWidth="58.0" style="-fx-text-fill: white; -fx-background-color: gray; -fx-background-radius: 10;" text="START">
          <effect>
             <Lighting specularConstant="0.09" specularExponent="20.92" surfaceScale="1.04">
                <bumpInput>
@@ -96,14 +105,19 @@
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor></Button>
-      <Label fx:id="wpmLabel" layoutX="468.0" layoutY="390.0" prefHeight="49.0" prefWidth="150.0" text="60 WPM">
+      <Label fx:id="wpmLabel" layoutX="468.0" layoutY="387.0" prefHeight="49.0" prefWidth="150.0" text="60 WPM">
          <font>
             <Font name="Impact" size="32.0" />
          </font>
          <textFill>
-            <RadialGradient centerX="0.5" centerY="0.5" focusAngle="-90.0" radius="1.0">
+            <LinearGradient endX="1.0" endY="1.0" startX="1.0" startY="0.4028436018957346">
                <stops>
                   <Stop>
+                     <color>
+                        <Color red="1.0" green="0.46666666865348816" blue="0.46666666865348816" />
+                     </color>
+                  </Stop>
+                  <Stop offset="0.006711409395973154">
                      <color>
                         <Color red="1.0" green="0.46666666865348816" blue="0.46666666865348816" />
                      </color>
@@ -114,10 +128,10 @@
                      </color>
                   </Stop>
                </stops>
-            </RadialGradient>
+            </LinearGradient>
          </textFill>
       </Label>
-      <ImageView fitHeight="127.0" fitWidth="222.0" layoutX="533.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="107.0" fitWidth="150.0" layoutX="553.0" layoutY="12.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@TURBOcopy.png" />
          </image>
@@ -125,7 +139,7 @@
             <MotionBlur />
          </effect>
       </ImageView>
-      <ImageView fitHeight="127.0" fitWidth="222.0" layoutX="533.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="107.0" fitWidth="150.0" layoutX="554.0" layoutY="11.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@TURBOcopy.png" />
          </image>
@@ -133,7 +147,7 @@
             <Bloom />
          </effect>
       </ImageView>
-      <Button alignment="CENTER" contentDisplay="CENTER" layoutX="98.0" layoutY="402.0" mnemonicParsing="false" onAction="#reset" prefHeight="25.0" prefWidth="58.0" style="-fx-text-fill: white; -fx-background-color: gray; -fx-background-radius: 10;" text="RESET">
+      <Button alignment="CENTER" contentDisplay="CENTER" layoutX="98.0" layoutY="399.0" mnemonicParsing="false" onAction="#reset" prefHeight="25.0" prefWidth="58.0" style="-fx-text-fill: white; -fx-background-color: gray; -fx-background-radius: 10;" text="RESET">
          <effect>
             <Lighting specularConstant="0.09" specularExponent="20.92" surfaceScale="1.04">
                <bumpInput>
@@ -150,13 +164,13 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </Button>
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ff7777" height="31.0" layoutX="607.0" layoutY="399.0" stroke="TRANSPARENT" width="2.0" />
-      <Label fx:id="accuracyLabel" layoutX="632.0" layoutY="390.0" prefHeight="49.0" prefWidth="242.0" text="100%  ACCURACY">
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ff7777" height="31.0" layoutX="607.0" layoutY="398.0" stroke="TRANSPARENT" width="2.0" />
+      <Label fx:id="accuracyLabel" layoutX="632.0" layoutY="387.0" prefHeight="49.0" prefWidth="242.0" text="100%  ACCURACY">
          <font>
             <Font name="Impact" size="32.0" />
          </font>
          <textFill>
-            <RadialGradient centerX="0.5" centerY="0.5" focusAngle="-90.0" radius="1.0">
+            <LinearGradient endX="1.0" endY="1.0" startX="1.0" startY="0.3744075829383886">
                <stops>
                   <Stop>
                      <color>
@@ -169,13 +183,35 @@
                      </color>
                   </Stop>
                </stops>
-            </RadialGradient>
+            </LinearGradient>
          </textFill>
       </Label>
-      <TextArea fx:id="promptField" editable="false" layoutX="31.0" layoutY="141.0" prefHeight="200.0" prefWidth="1194.0" wrapText="true">
+      <ChoiceBox fx:id="difficultyChoice" layoutX="31.0" layoutY="112.0" prefWidth="150.0" style="-fx-background-color: white;" />
+      <Label fx:id="difficultyLabel" layoutX="50.0" layoutY="54.0" prefHeight="49.0" prefWidth="112.0" text="60 WPM">
          <font>
-            <Font name="Microsoft Tai Le" size="25.0" />
+            <Font name="Impact" size="32.0" />
          </font>
-      </TextArea>
+         <textFill>
+            <LinearGradient endX="1.0" endY="1.0" startX="1.0" startY="0.4028436018957346">
+               <stops>
+                  <Stop>
+                     <color>
+                        <Color red="1.0" green="0.46666666865348816" blue="0.46666666865348816" />
+                     </color>
+                  </Stop>
+                  <Stop offset="0.006711409395973154">
+                     <color>
+                        <Color red="1.0" green="0.46666666865348816" blue="0.46666666865348816" />
+                     </color>
+                  </Stop>
+                  <Stop offset="1.0">
+                     <color>
+                        <Color />
+                     </color>
+                  </Stop>
+               </stops>
+            </LinearGradient>
+         </textFill>
+      </Label>
    </children>
 </AnchorPane>

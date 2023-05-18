@@ -1,6 +1,7 @@
 package com.example.javafxproject;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
@@ -25,8 +26,13 @@ public class SceneController extends Calculations implements Initializable {
     @FXML
     Label wpmLabel;
     @FXML
+    ChoiceBox<String> difficultyChoice;
+    @FXML
     TextArea promptField;
+    @FXML
+    Label difficultyLabel;
 
+    private final String[] choices = {"Easy", "Medium", "Extreme"};
     private static int timeRemaining = 60;
     private static int timeElapsed = 0;
     private static double minutes = 1;
@@ -53,8 +59,10 @@ public class SceneController extends Calculations implements Initializable {
     }));
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        field.setPromptText("Begin typing here...");
-        promptField.setText(PromptText.generateEasyPrompt());
+        difficultyChoice.getItems().addAll(choices);
+        difficultyChoice.setValue("Easy");
+        difficultyChoice.setOnAction(this::setDifficulty);
+        difficultyLabel.setText(difficultyChoice.getValue());
     }
     public void beginTimer() {
         field.clear();
@@ -63,6 +71,11 @@ public class SceneController extends Calculations implements Initializable {
         timeElapsed = 0;
         timeline.setCycleCount(timeRemaining);
         timeline.play();
+    }
+
+    public void setDifficulty(ActionEvent e) {
+        promptField.setText((PromptText.generatePrompt(difficultyChoice.getValue())));
+        difficultyLabel.setText(difficultyChoice.getValue());
     }
 
     public void testingTimer() {
