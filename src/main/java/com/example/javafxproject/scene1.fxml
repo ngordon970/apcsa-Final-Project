@@ -25,7 +25,7 @@
 
 <AnchorPane focusTraversable="true" prefHeight="818.0" prefWidth="1256.0" style="-fx-background-color: #1f1f1f;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.javafxproject.SceneController">
    <children>
-      <TextArea fx:id="promptField" editable="false" focusTraversable="false" layoutX="31.0" layoutY="161.0" pickOnBounds="false" prefHeight="157.0" prefWidth="1194.0" style="-fx-control-inner-background: #1f1f1f; -fx-background-color: #1f1f1f; -fx-border-color: #1f1f1f; -fx-background-insets: 0; -fx-text-box-border: #1f1f1f; -fx-focus-color: #1f1f1f;" wrapText="true">
+      <TextArea fx:id="promptField" editable="false" focusTraversable="false" layoutX="31.0" layoutY="161.0" pickOnBounds="false" prefHeight="157.0" prefWidth="1194.0" style="-fx-control-inner-background: #1f1f1f; -fx-background-color: #1f1f1f; -fx-border-color: #1f1f1f; -fx-background-insets: 0; -fx-text-box-border: #1f1f1f; -fx-focus-color: #1f1f1f; -fx-text-alignment: center;" wrapText="true">
          <font>
             <Font name="Microsoft Tai Le" size="40.0" />
          </font>
@@ -186,32 +186,11 @@
             </LinearGradient>
          </textFill>
       </Label>
-      <ChoiceBox fx:id="difficultyChoice" layoutX="31.0" layoutY="112.0" prefWidth="150.0" style="-fx-background-color: white;" />
-      <Label fx:id="difficultyLabel" layoutX="50.0" layoutY="54.0" prefHeight="49.0" prefWidth="112.0" text="60 WPM">
+      <ChoiceBox fx:id="difficultyChoice" layoutX="23.0" layoutY="112.0" prefWidth="150.0" style="-fx-background-color: white;" />
+      <Label fx:id="difficultyLabel" layoutX="11.0" layoutY="66.0" prefHeight="49.0" prefWidth="304.0" text="DIFFICULTY: EASY" textFill="WHITE">
          <font>
-            <Font name="Impact" size="32.0" />
+            <Font name="Impact" size="27.0" />
          </font>
-         <textFill>
-            <LinearGradient endX="1.0" endY="1.0" startX="1.0" startY="0.4028436018957346">
-               <stops>
-                  <Stop>
-                     <color>
-                        <Color red="1.0" green="0.46666666865348816" blue="0.46666666865348816" />
-                     </color>
-                  </Stop>
-                  <Stop offset="0.006711409395973154">
-                     <color>
-                        <Color red="1.0" green="0.46666666865348816" blue="0.46666666865348816" />
-                     </color>
-                  </Stop>
-                  <Stop offset="1.0">
-                     <color>
-                        <Color />
-                     </color>
-                  </Stop>
-               </stops>
-            </LinearGradient>
-         </textFill>
       </Label>
    </children>
 </AnchorPane>
