@@ -1,5 +1,6 @@
 package com.example.javafxproject;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,6 +11,11 @@ public class Calculations {
         ArrayList<String> words = new ArrayList<>(List.of(SceneController.getUserContent().split(" ")));
         int length = words.size();
         return Math.round(length * ((double) 60 / timeElapsed));
+    }
+
+    public static ArrayList<String> getPromptWords(String prompt) {
+        ArrayList<String> promptWords = new ArrayList<>(List.of(prompt.split(" ")));
+        return promptWords;
     }
 
     public static double getAccuracy(String passage, String userInput) {
@@ -23,6 +29,9 @@ public class Calculations {
             }
         }
         return ((double)accurate / userInput.length()) * 100;
+    }
+
+    public int getCurrentPromptRow(int currIndex) { return currIndex / 66 + 1; }
     }
 
 }
