@@ -9,15 +9,15 @@ public class PromptText {
         {
             StringBuilder easyPrompt = new StringBuilder();
             try {
-                FileReader reader = new FileReader("C:\\Users\\Noah\\IdeaProjects\\javaFXPROJECT\\src\\main\\java\\com\\example\\javafxproject\\easyPrompt.txt");
+                FileReader reader = new FileReader("C:\\Users\\24gordonno\\IdeaProjects\\apcsa-Final-Project\\src\\main\\java\\com\\example\\javafxproject\\easyPrompt.txt");
                 int data = reader.read();
                 while (data != -1) {
                     easyPrompt.append((char) data);
                     data = reader.read();
                 }
                 reader.close();
-                int randomLoc = (int) (Math.random() * (easyPrompt.length() - 150 + 1));
-                easyPrompt = new StringBuilder(easyPrompt.substring(randomLoc));
+                int randomWordLoc = (int) (Math.random() * (Calculations.getPromptWords(String.valueOf(easyPrompt)).size() - 150));
+                easyPrompt = new StringBuilder(easyPrompt.substring(easyPrompt.indexOf(Calculations.getPromptWords(String.valueOf(easyPrompt)).get(randomWordLoc))));
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -28,15 +28,15 @@ public class PromptText {
         {
             StringBuilder medPrompt = new StringBuilder();
             try {
-                FileReader reader = new FileReader("C:\\Users\\Noah\\IdeaProjects\\javaFXPROJECT\\src\\main\\java\\com\\example\\javafxproject\\mediumPrompt.txt");
+                FileReader reader = new FileReader("C:\\Users\\24gordonno\\IdeaProjects\\apcsa-Final-Project\\src\\main\\java\\com\\example\\javafxproject\\mediumPrompt.txt");
                 int data = reader.read();
                 while (data != -1) {
                     medPrompt.append((char) data);
                     data = reader.read();
                 }
                 reader.close();
-                int randomLoc = (int) (Math.random() * (medPrompt.length() - 150 + 1));
-                medPrompt = new StringBuilder(medPrompt.substring(randomLoc));
+                int randomWordLoc = (int) (Math.random() * (Calculations.getPromptWords(String.valueOf(medPrompt)).size() - 150));
+                medPrompt = new StringBuilder(medPrompt.substring(medPrompt.indexOf(Calculations.getPromptWords(String.valueOf(medPrompt)).get(randomWordLoc))));
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -47,15 +47,15 @@ public class PromptText {
         {
             StringBuilder extremePrompt = new StringBuilder();
             try {
-                FileReader reader = new FileReader("C:\\Users\\Noah\\IdeaProjects\\javaFXPROJECT\\src\\main\\java\\com\\example\\javafxproject\\extremePrompt.txt");
+                FileReader reader = new FileReader("C:\\Users\\24gordonno\\IdeaProjects\\apcsa-Final-Project\\src\\main\\java\\com\\example\\javafxproject\\extremePrompt.txt");
                 int data = reader.read();
                 while (data != -1) {
                     extremePrompt.append((char) data);
                     data = reader.read();
                 }
                 reader.close();
-                int randomLoc = (int) (Math.random() * (extremePrompt.length() - 150 + 1));
-                extremePrompt = new StringBuilder(extremePrompt.substring(randomLoc));
+                int randomWordLoc = (int) (Math.random() * (Calculations.getPromptWords(String.valueOf(extremePrompt)).size() - 150));
+                extremePrompt = new StringBuilder(extremePrompt.substring(extremePrompt.indexOf(Calculations.getPromptWords(String.valueOf(extremePrompt)).get(randomWordLoc))));
             } catch (Exception e) {
                 e.printStackTrace();
             }
