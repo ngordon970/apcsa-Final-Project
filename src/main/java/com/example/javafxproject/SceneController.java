@@ -5,8 +5,10 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.text.TextAlignment;
 import javafx.util.Duration;
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class SceneController extends Calculations implements Initializable {
@@ -58,7 +60,8 @@ public class SceneController extends Calculations implements Initializable {
         difficultyChoice.getItems().addAll(choices);
         difficultyChoice.setValue("Easy");
         difficultyChoice.setOnAction(this::setDifficulty);
-        difficultyLabel.setText(difficultyChoice.getValue());
+        difficultyLabel.setText("DIFFICULTY:");
+        promptField.setText(PromptText.generatePrompt("Easy"));
     }
     public void setTimerLabel(int num) {
         if(num < 60) {
@@ -83,7 +86,6 @@ public class SceneController extends Calculations implements Initializable {
 
     public void setDifficulty(ActionEvent e) {
         promptField.setText((PromptText.generatePrompt(difficultyChoice.getValue())));
-        difficultyLabel.setText(difficultyChoice.getValue());
     }
 
     public void testingTimer() {
