@@ -62,7 +62,6 @@ public class SceneController extends Calculations implements Initializable {
         difficultyChoice.setValue("Easy");
         difficultyChoice.setOnAction(this::setDifficulty);
         promptLabel.setText(PromptText.generatePrompt("Easy"));
-        promptLabel.setTextAlignment(TextAlignment.JUSTIFY);
         promptContents = promptLabel.getText();
     }
     public void setTimerLabel(int num) {
@@ -79,22 +78,21 @@ public class SceneController extends Calculations implements Initializable {
     }
 
     public void updatePromptLabel() {
-        promptLabel.setText(promptContents.substring(promptIndex, promptIndex + 104));
+        promptLabel.setText(promptContents.substring(promptIndex, promptIndex + 208));
         promptIndex += 104;
-        promptLabel.setTextAlignment(TextAlignment.JUSTIFY);
     }
     public void beginTimer() {
         field.clear();
         timeRemaining = (int) Math.round(minutes * 60);
         setTimerLabel(timeRemaining);
         timeElapsed = 0;
+        setDifficulty(null);
         timeline.setCycleCount(timeRemaining);
         timeline.play();
     }
 
     public void setDifficulty(ActionEvent e) {
         promptLabel.setText((PromptText.generatePrompt(difficultyChoice.getValue())));
-        promptLabel.setTextAlignment(TextAlignment.JUSTIFY);
         promptContents = promptLabel.getText();
     }
 

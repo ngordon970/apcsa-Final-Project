@@ -165,7 +165,7 @@
             <Font name="Impact" size="18.0" />
          </font>
       </Label>
-      <Label fx:id="promptLabel" alignment="TOP_LEFT" ellipsisString="" layoutX="159.0" layoutY="161.0" prefHeight="134.0" prefWidth="947.0" style="-fx-border-color: white;" textFill="#d3d3d3" wrapText="true">
+      <Label fx:id="promptLabel" alignment="TOP_LEFT" ellipsisString="" layoutX="159.0" layoutY="129.0" prefHeight="208.0" prefWidth="947.0" style="-fx-border-color: white;" textFill="#d3d3d3" wrapText="true">
          <font>
             <Font size="40.0" />
          </font>

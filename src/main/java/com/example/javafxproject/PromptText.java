@@ -9,7 +9,7 @@ public class PromptText {
         {
             StringBuilder easyPrompt = new StringBuilder();
             try {
-                FileReader reader = new FileReader("C:\\Users\\24gordonno\\IdeaProjects\\apcsa-Final-Project\\src\\main\\java\\com\\example\\javafxproject\\easyPrompt.txt");
+                FileReader reader = new FileReader("C:\\Users\\Noah\\IdeaProjects\\javaFXPROJECT\\src\\main\\java\\com\\example\\javafxproject\\easyPrompt.txt");
                 int data = reader.read();
                 while (data != -1) {
                     easyPrompt.append((char) data);
@@ -28,7 +28,7 @@ public class PromptText {
         {
             StringBuilder medPrompt = new StringBuilder();
             try {
-                FileReader reader = new FileReader("C:\\Users\\24gordonno\\IdeaProjects\\apcsa-Final-Project\\src\\main\\java\\com\\example\\javafxproject\\mediumPrompt.txt");
+                FileReader reader = new FileReader("C:\\Users\\Noah\\IdeaProjects\\javaFXPROJECT\\src\\main\\java\\com\\example\\javafxproject\\mediumPrompt.txt");
                 int data = reader.read();
                 while (data != -1) {
                     medPrompt.append((char) data);
@@ -47,7 +47,7 @@ public class PromptText {
         {
             StringBuilder extremePrompt = new StringBuilder();
             try {
-                FileReader reader = new FileReader("C:\\Users\\24gordonno\\IdeaProjects\\apcsa-Final-Project\\src\\main\\java\\com\\example\\javafxproject\\extremePrompt.txt");
+                FileReader reader = new FileReader("C:\\Users\\Noah\\IdeaProjects\\javaFXPROJECT\\src\\main\\java\\com\\example\\javafxproject\\extremePrompt.txt");
                 int data = reader.read();
                 while (data != -1) {
                     extremePrompt.append((char) data);
