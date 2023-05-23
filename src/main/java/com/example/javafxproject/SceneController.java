@@ -8,7 +8,6 @@ import javafx.scene.control.*;
 import javafx.scene.text.TextAlignment;
 import javafx.util.Duration;
 import java.net.URL;
-import java.util.List;
 import java.util.ResourceBundle;
 
 public class SceneController extends Calculations implements Initializable {
@@ -18,29 +17,26 @@ public class SceneController extends Calculations implements Initializable {
     @FXML
     private Label timerLabel;
     @FXML
-    private RadioButton button30s, button60s, button180s;
-    @FXML
     private Label accuracyLabel;
     @FXML
     private Label wpmLabel;
     @FXML
     private ChoiceBox<String> difficultyChoice;
     @FXML
-    private TextArea promptField;
+    Label promptLabel;
     @FXML
-    private Label difficultyLabel;
 
     private final String[] choices = {"Easy", "Medium", "Extreme"};
     private static int timeRemaining = 60;
     private static int timeElapsed = 0;
     private static double minutes = 1;
     private static String contents;
-    private int promptIndex = 0;
+    private int promptIndex = 104;
     private String promptContents;
 
     Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(1), e -> {
         if (timeRemaining > 0) {
-            if(field.getText().length() > promptIndex + 44) {
+            if(field.getText().length() > promptIndex) {
                 updatePromptLabel();
             }
             timeElapsed += 1;
@@ -49,7 +45,7 @@ public class SceneController extends Calculations implements Initializable {
             contents = field.getText();
             wpmLabel.setText((int) (getWPM(timeElapsed)) + " WPM");
             try {
-                accuracyLabel.setText((String.valueOf(Calculations.getAccuracy(promptField.getText(), contents))) + "%");
+                accuracyLabel.setText((Calculations.getAccuracy(promptContents.substring(0, contents.length()), contents)) + "%");
             }
             catch(Exception exception){
                 timeRemaining = 0;
@@ -65,8 +61,9 @@ public class SceneController extends Calculations implements Initializable {
         difficultyChoice.getItems().addAll(choices);
         difficultyChoice.setValue("Easy");
         difficultyChoice.setOnAction(this::setDifficulty);
-        difficultyLabel.setText("DIFFICULTY:");
-        promptField.setText(PromptText.generatePrompt("Easy"));
+        promptLabel.setText(PromptText.generatePrompt("Easy"));
+        promptLabel.setTextAlignment(TextAlignment.JUSTIFY);
+        promptContents = promptLabel.getText();
     }
     public void setTimerLabel(int num) {
         if(num < 60) {
@@ -80,6 +77,12 @@ public class SceneController extends Calculations implements Initializable {
             timerLabel.setText(num/60 + ":0" + num % 60);
         } else timerLabel.setText(num/60 + ":" + num % 60);
     }
+
+    public void updatePromptLabel() {
+        promptLabel.setText(promptContents.substring(promptIndex, promptIndex + 104));
+        promptIndex += 104;
+        promptLabel.setTextAlignment(TextAlignment.JUSTIFY);
+    }
     public void beginTimer() {
         field.clear();
         timeRemaining = (int) Math.round(minutes * 60);
@@ -88,14 +91,11 @@ public class SceneController extends Calculations implements Initializable {
         timeline.setCycleCount(timeRemaining);
         timeline.play();
     }
-    
-        public void updatePromptLabel() {
-        promptLabel.setText(promptLabel.getText().substring(promptIndex, promptIndex + 45));
-        promptIndex += 45;
-    }
 
     public void setDifficulty(ActionEvent e) {
-        promptField.setText((PromptText.generatePrompt(difficultyChoice.getValue())));
+        promptLabel.setText((PromptText.generatePrompt(difficultyChoice.getValue())));
+        promptLabel.setTextAlignment(TextAlignment.JUSTIFY);
+        promptContents = promptLabel.getText();
     }
 
     public void testingTimer() {
