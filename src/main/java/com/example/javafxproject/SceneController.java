@@ -35,9 +35,14 @@ public class SceneController extends Calculations implements Initializable {
     private static int timeElapsed = 0;
     private static double minutes = 1;
     private static String contents;
+    private int promptIndex = 0;
+    private String promptContents;
 
     Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(1), e -> {
         if (timeRemaining > 0) {
+            if(field.getText().length() > promptIndex + 44) {
+                updatePromptLabel();
+            }
             timeElapsed += 1;
             timeRemaining -= 1;
             setTimerLabel(timeRemaining);
@@ -82,6 +87,11 @@ public class SceneController extends Calculations implements Initializable {
         timeElapsed = 0;
         timeline.setCycleCount(timeRemaining);
         timeline.play();
+    }
+    
+        public void updatePromptLabel() {
+        promptLabel.setText(promptLabel.getText().substring(promptIndex, promptIndex + 45));
+        promptIndex += 45;
     }
 
     public void setDifficulty(ActionEvent e) {
