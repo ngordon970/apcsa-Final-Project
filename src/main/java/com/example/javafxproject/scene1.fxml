@@ -24,7 +24,7 @@
 
 <AnchorPane focusTraversable="true" prefHeight="818.0" prefWidth="1256.0" style="-fx-background-color: #1f1f1f;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.javafxproject.SceneController">
    <children>
-      <TextArea fx:id="field" focusTraversable="false" layoutX="31.0" layoutY="444.0" prefHeight="355.0" prefWidth="1194.0" promptText="Begin typing here..." style="-fx-control-inner-background: #292929; -fx-background-color: #292929; -fx-border-color: #292929; -fx-padding: 0; -fx-text-fill: #b8b8b8; -fx-prompt-text-fill: #b8b8b8; -fx-focus-color: #292929;" wrapText="true">
+      <TextArea fx:id="field" focusTraversable="false" layoutX="31.0" layoutY="444.0" onKeyTyped="#onKeyTyped" prefHeight="355.0" prefWidth="1194.0" promptText="Begin typing here..." style="-fx-control-inner-background: #292929; -fx-background-color: #292929; -fx-border-color: #292929; -fx-padding: 0; -fx-text-fill: #b8b8b8; -fx-prompt-text-fill: #b8b8b8; -fx-focus-color: #292929;" wrapText="true">
          <font>
             <Font name="Microsoft Tai Le" size="29.0" />
          </font>
@@ -138,7 +138,7 @@
          </cursor>
       </Button>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ff7777" height="31.0" layoutX="607.0" layoutY="398.0" stroke="TRANSPARENT" width="2.0" />
-      <Label fx:id="accuracyLabel" layoutX="632.0" layoutY="387.0" prefHeight="49.0" prefWidth="242.0" text="0%  ACCURACY">
+      <Label fx:id="accuracyLabel" layoutX="632.0" layoutY="387.0" prefHeight="49.0" prefWidth="242.0" text="0%  ACCURATE">
          <font>
             <Font name="Impact" size="32.0" />
          </font>
@@ -165,7 +165,7 @@
             <Font name="Impact" size="18.0" />
          </font>
       </Label>
-      <Label fx:id="promptLabel" alignment="TOP_LEFT" ellipsisString="" layoutX="159.0" layoutY="129.0" prefHeight="208.0" prefWidth="947.0" style="-fx-border-color: white;" textFill="#d3d3d3" wrapText="true">
+      <Label fx:id="promptLabel" layoutX="159.0" layoutY="129.0" lineSpacing="1.0" pickOnBounds="false" prefHeight="208.0" prefWidth="947.0" style="-fx-border-color: white;" textFill="#d3d3d3" textOverrun="CLIP" wrapText="true">
          <font>
             <Font size="40.0" />
          </font>

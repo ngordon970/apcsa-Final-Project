@@ -5,7 +5,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
-import javafx.scene.text.TextAlignment;
 import javafx.util.Duration;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -36,19 +35,16 @@ public class SceneController extends Calculations implements Initializable {
 
     Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(1), e -> {
         if (timeRemaining > 0) {
-            if(field.getText().length() > promptIndex) {
-                updatePromptLabel();
-            }
             timeElapsed += 1;
             timeRemaining -= 1;
             setTimerLabel(timeRemaining);
             contents = field.getText();
             wpmLabel.setText((int) (getWPM(timeElapsed)) + " WPM");
             try {
-                accuracyLabel.setText((Calculations.getAccuracy(promptContents.substring(0, contents.length()), contents)) + "%");
+                accuracyLabel.setText(Math.round((Calculations.getAccuracy(promptContents.substring(0, contents.length()), contents))) + "% ACCURATE");
             }
             catch(Exception exception){
-                timeRemaining = 0;
+                reset();
             }
 
         }
@@ -92,8 +88,15 @@ public class SceneController extends Calculations implements Initializable {
     }
 
     public void setDifficulty(ActionEvent e) {
+        reset();
         promptLabel.setText((PromptText.generatePrompt(difficultyChoice.getValue())));
         promptContents = promptLabel.getText();
+    }
+
+    public void onKeyTyped() {
+        if (field.getText().length() > promptIndex) {
+            updatePromptLabel();
+        }
     }
 
     public void testingTimer() {
