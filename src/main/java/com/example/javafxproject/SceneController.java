@@ -116,6 +116,7 @@ public class SceneController extends Calculations implements Initializable {
         button1.setTextFill(colorTheme);
         button2.setTextFill(colorTheme);
         button3.setTextFill(colorTheme);
+        promptLabel.setTextFill(colorTheme);
     }
 
     public void setDifficulty(ActionEvent e) {
