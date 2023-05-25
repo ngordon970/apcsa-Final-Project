@@ -5,14 +5,24 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
+import javafx.scene.effect.DropShadow;
+import javafx.scene.paint.Color;
+import javafx.scene.paint.CycleMethod;
+import javafx.scene.paint.LinearGradient;
+import javafx.scene.paint.Stop;
 import javafx.util.Duration;
+
+import java.awt.*;
+import java.awt.Button;
 import java.net.URL;
 import java.util.ResourceBundle;
 
 public class SceneController extends Calculations implements Initializable {
 
     @FXML
-    private TextArea field;
+    private TextArea inputField;
     @FXML
     private Label timerLabel;
     @FXML
@@ -22,8 +32,11 @@ public class SceneController extends Calculations implements Initializable {
     @FXML
     private ChoiceBox<String> difficultyChoice;
     @FXML
+    ColorPicker colorPicker;
+    @FXML
     Label promptLabel;
     @FXML
+    RadioButton button1, button2, button3;
 
     private final String[] choices = {"Easy", "Medium", "Extreme"};
     private static int timeRemaining = 60;
@@ -32,13 +45,14 @@ public class SceneController extends Calculations implements Initializable {
     private static String contents;
     private int promptIndex = 104;
     private String promptContents;
+    private Color colorTheme;
 
     Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(1), e -> {
         if (timeRemaining > 0) {
             timeElapsed += 1;
             timeRemaining -= 1;
             setTimerLabel(timeRemaining);
-            contents = field.getText();
+            contents = inputField.getText();
             wpmLabel.setText((int) (getWPM(timeElapsed)) + " WPM");
             try {
                 accuracyLabel.setText(Math.round((Calculations.getAccuracy(promptContents.substring(0, contents.length()), contents))) + "% ACCURATE");
@@ -59,6 +73,7 @@ public class SceneController extends Calculations implements Initializable {
         difficultyChoice.setOnAction(this::setDifficulty);
         promptLabel.setText(PromptText.generatePrompt("Easy"));
         promptContents = promptLabel.getText();
+        colorTheme = colorPicker.getValue();
     }
     public void setTimerLabel(int num) {
         if(num < 60) {
@@ -78,13 +93,29 @@ public class SceneController extends Calculations implements Initializable {
         promptIndex += 104;
     }
     public void beginTimer() {
-        field.clear();
+        inputField.clear();
         timeRemaining = (int) Math.round(minutes * 60);
         setTimerLabel(timeRemaining);
         timeElapsed = 0;
         setDifficulty(null);
         timeline.setCycleCount(timeRemaining);
         timeline.play();
+    }
+
+    public void changeColorTheme(ActionEvent e) {
+        colorTheme = colorPicker.getValue();
+        inputField.setEffect(new DropShadow(20, colorTheme));
+        accuracyLabel.setTextFill(new LinearGradient(
+                1.0, 0.3744, 1.0, 1.0, true, CycleMethod.NO_CYCLE,
+                new Stop(0.0, colorTheme),
+                new Stop(1.0, new Color(0.0, 0.0, 0.0, 1.0))));
+        wpmLabel.setTextFill(new LinearGradient(
+                1.0, 0.3744, 1.0, 1.0, true, CycleMethod.NO_CYCLE,
+                new Stop(0.0, colorTheme),
+                new Stop(1.0, new Color(0.0, 0.0, 0.0, 1.0))));
+        button1.setTextFill(colorTheme);
+        button2.setTextFill(colorTheme);
+        button3.setTextFill(colorTheme);
     }
 
     public void setDifficulty(ActionEvent e) {
@@ -94,13 +125,13 @@ public class SceneController extends Calculations implements Initializable {
     }
 
     public void onKeyTyped() {
-        if (field.getText().length() > promptIndex) {
+        if (inputField.getText().length() > promptIndex) {
             updatePromptLabel();
         }
     }
 
     public void testingTimer() {
-        field.clear();
+        inputField.clear();
         timeRemaining = 5;
         timeline.setCycleCount(timeRemaining);
         timeline.play();
@@ -114,19 +145,19 @@ public class SceneController extends Calculations implements Initializable {
 
     public void reset() {
         stop();
-        field.clear();
+        inputField.clear();
     }
-    public void button30sPressed() {
+    public void button1Pressed() {
         minutes = 0.5;
         setTimerLabel(30);
     }
 
-    public void button60sPressed() {
+    public void button2Pressed() {
         minutes = 1.0;
         setTimerLabel(60);
     }
 
-    public void button180sPressed() {
+    public void button3Pressed() {
         minutes = 3.0;
         setTimerLabel(180);
     }
