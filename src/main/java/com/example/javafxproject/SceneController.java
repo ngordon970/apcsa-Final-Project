@@ -132,8 +132,6 @@ public class SceneController extends Calculations implements Initializable {
         button1.setTextFill(colorTheme);
         button2.setTextFill(colorTheme);
         button3.setTextFill(colorTheme);
-        promptLabel.setTextFill(colorTheme);
-
     }
 
     public void setDifficulty(ActionEvent e) {
@@ -159,17 +157,21 @@ public class SceneController extends Calculations implements Initializable {
         if(b) {
             for(Node node : anchorPane.getChildrenUnmodifiable()) {
                 if(node != popupPane) {
-                    Effect existingEffect = node.getEffect();
-                    Blend effectBlend = new Blend(BlendMode.MULTIPLY);
-                    effectBlend.setTopInput(gaussianBlur);
-                    effectBlend.setBottomInput(existingEffect);
-                    node.setEffect(effectBlend);
+                    if(node.getEffect() == null) {
+                        node.setEffect(gaussianBlur);
+                    } else {
+                        gaussianBlur.setInput(node.getEffect());
+                        node.setEffect(gaussianBlur);
+                    }
+                    node.setDisable(true);
+                    node.setOpacity(100);
                 }
             }
         } else {
             int i = 0;
             for(Node node : anchorPane.getChildrenUnmodifiable()) {
                 node.setEffect(effects.get(i));
+                node.setDisable(false);
                 i++;
             }
         }
