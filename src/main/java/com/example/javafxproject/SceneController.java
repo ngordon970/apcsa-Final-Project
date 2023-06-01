@@ -4,19 +4,20 @@ import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
-import javafx.scene.effect.DropShadow;
+import javafx.scene.effect.*;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.CycleMethod;
 import javafx.scene.paint.LinearGradient;
 import javafx.scene.paint.Stop;
 import javafx.util.Duration;
-
-import java.awt.*;
-import java.awt.Button;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class SceneController extends Calculations implements Initializable {
@@ -37,8 +38,15 @@ public class SceneController extends Calculations implements Initializable {
     Label promptLabel;
     @FXML
     RadioButton button1, button2, button3;
+    @FXML
+    Button popupButton, startButton, resetButton;
+    @FXML
+    Pane popupPane;
+    @FXML
+    AnchorPane anchorPane;
 
     private final String[] choices = {"Easy", "Medium", "Extreme"};
+    private ArrayList<Effect> effects = new ArrayList<>();
     private static int timeRemaining = 60;
     private static int timeElapsed = 0;
     private static double minutes = 1;
@@ -74,6 +82,14 @@ public class SceneController extends Calculations implements Initializable {
         promptLabel.setText(PromptText.generatePrompt("Easy"));
         promptContents = promptLabel.getText();
         colorTheme = colorPicker.getValue();
+        for(Node node : anchorPane.getChildrenUnmodifiable()) {
+            if(node.getEffect() != null) {
+                effects.add(node.getEffect());
+            } else {
+                effects.add(null);
+            }
+        }
+        blurBackground(true);
     }
     public void setTimerLabel(int num) {
         if(num < 60) {
@@ -132,11 +148,31 @@ public class SceneController extends Calculations implements Initializable {
         }
     }
 
-    public void testingTimer() {
-        inputField.clear();
-        timeRemaining = 5;
-        timeline.setCycleCount(timeRemaining);
-        timeline.play();
+    public void popupButtonPressed() {
+        blurBackground(false);
+        popupPane.setDisable(true);
+        popupPane.setOpacity(0);
+    }
+
+    public void blurBackground(boolean b) {
+        GaussianBlur gaussianBlur = new GaussianBlur(10);
+        if(b) {
+            for(Node node : anchorPane.getChildrenUnmodifiable()) {
+                if(node != popupPane) {
+                    Effect existingEffect = node.getEffect();
+                    Blend effectBlend = new Blend(BlendMode.MULTIPLY);
+                    effectBlend.setTopInput(gaussianBlur);
+                    effectBlend.setBottomInput(existingEffect);
+                    node.setEffect(effectBlend);
+                }
+            }
+        } else {
+            int i = 0;
+            for(Node node : anchorPane.getChildrenUnmodifiable()) {
+                node.setEffect(effects.get(i));
+                i++;
+            }
+        }
     }
 
     public void stop() {
