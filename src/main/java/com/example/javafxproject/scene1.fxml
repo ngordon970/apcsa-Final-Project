@@ -189,18 +189,15 @@
                   <Font size="36.0" />
                </font>
                <effect>
-                  <InnerShadow choke="0.18" height="28.07" radius="13.717500000000001" width="28.8" />
+                  <InnerShadow choke="0.18" height="28.62" radius="13.855" width="28.8" />
                </effect>
             </Label>
             <Button fx:id="popupButton" alignment="CENTER" contentDisplay="CENTER" layoutX="242.0" layoutY="239.0" mnemonicParsing="false" onAction="#popupButtonPressed" prefHeight="32.0" prefWidth="87.0" style="-fx-text-fill: white; -fx-background-color: grey; -fx-background-radius: 10;" text="TRY IT OUT" textFill="WHITE">
-               <font>
-                  <Font name="Impact" size="15.0" />
-               </font>
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
                <effect>
-                  <Lighting diffuseConstant="1.21" specularConstant="0.46" specularExponent="13.56" surfaceScale="1.04">
+                  <Lighting diffuseConstant="1.21" specularConstant="0.02" specularExponent="8.04" surfaceScale="1.04">
                      <bumpInput>
                         <Shadow>
                            <color>
@@ -212,6 +209,9 @@
                      </light>
                   </Lighting>
                </effect>
+               <font>
+                  <Font size="13.0" />
+               </font>
             </Button>
             <Label layoutX="195.0" layoutY="115.0" prefHeight="47.0" prefWidth="291.0" text="‣ Color theme selectability" textFill="#c3c3c3">
                <font>
