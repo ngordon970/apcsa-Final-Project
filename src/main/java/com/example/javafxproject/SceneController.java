@@ -109,6 +109,7 @@ public class SceneController extends Calculations implements Initializable {
         promptIndex += 104;
     }
     public void beginTimer() {
+        clearCharList();
         inputField.clear();
         timeRemaining = (int) Math.round(minutes * 60);
         setTimerLabel(timeRemaining);
