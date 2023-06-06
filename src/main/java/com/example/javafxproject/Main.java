@@ -17,7 +17,7 @@ public class Main extends Application {
         Parent root = FXMLLoader.load(url);
         Scene scene = new Scene(root);
         stage.getIcons().add(new Image("C:\\Users\\Noah\\IdeaProjects\\javaFXPROJECT\\src\\main\\java\\com\\example\\javafxproject\\TURBOcopy.png"));
-        stage.setResizable(true);
+        stage.setResizable(false);
         stage.setTitle("TurboType");
         stage.setScene(scene);
         stage.show();
