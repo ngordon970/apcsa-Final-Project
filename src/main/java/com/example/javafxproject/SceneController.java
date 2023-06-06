@@ -23,28 +23,24 @@ import java.util.ResourceBundle;
 public class SceneController extends Calculations implements Initializable {
 
     @FXML
-    private TextArea inputField;
+    TextArea inputField;
     @FXML
-    private Label timerLabel;
-    @FXML
-    private Label accuracyLabel;
-    @FXML
-    private Label wpmLabel;
-    @FXML
-    private ChoiceBox<String> difficultyChoice;
+    ChoiceBox<String> difficultyChoice;
     @FXML
     ColorPicker colorPicker;
     @FXML
-    Label promptLabel;
+    Label promptLabel, timerLabel, accuracyLabel, wpmLabel, wpmResult, accuracyResult, bestWPM, bestAccuracy;
     @FXML
     RadioButton button1, button2, button3;
     @FXML
     Button popupButton, startButton, resetButton;
     @FXML
-    Pane popupPane;
+    Pane popupPane, resultsPane;
     @FXML
     AnchorPane anchorPane;
 
+    private double wpm = 0;
+    private double accuracy = 0;
     private final String[] choices = {"Easy", "Medium", "Extreme"};
     private ArrayList<Effect> effects = new ArrayList<>();
     private static int timeRemaining = 60;
@@ -54,16 +50,20 @@ public class SceneController extends Calculations implements Initializable {
     private int promptIndex = 104;
     private String promptContents;
     private Color colorTheme;
+    private double wpmRecord = 0;
+    private double accuracyRecord = 0;
 
     Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(1), e -> {
         if (timeRemaining > 0) {
+            contents = inputField.getText();
+            accuracy = Calculations.getAccuracy(promptContents.substring(0, contents.length()), contents);
+            wpm = getWPM(timeElapsed);
             timeElapsed += 1;
             timeRemaining -= 1;
             setTimerLabel(timeRemaining);
-            contents = inputField.getText();
-            wpmLabel.setText((int) (getWPM(timeElapsed)) + " WPM");
+            wpmLabel.setText(Math.round(wpm) + " WPM");
             try {
-                accuracyLabel.setText(Math.round((Calculations.getAccuracy(promptContents.substring(0, contents.length()), contents))) + "% ACCURATE");
+                accuracyLabel.setText(Math.round(accuracy) + "% ACCURATE");
             }
             catch(Exception exception){
                 reset();
@@ -72,10 +72,13 @@ public class SceneController extends Calculations implements Initializable {
         }
         if (timeRemaining <= 0) {
             stop();
+            showResults();
         }
     }));
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        resultsPane.setVisible(false);
+        popupPane.setVisible(true);
         difficultyChoice.getItems().addAll(choices);
         difficultyChoice.setValue("Easy");
         difficultyChoice.setOnAction(this::setDifficulty);
@@ -103,13 +106,29 @@ public class SceneController extends Calculations implements Initializable {
             timerLabel.setText(num/60 + ":0" + num % 60);
         } else timerLabel.setText(num/60 + ":" + num % 60);
     }
-
+    public void showResults() {
+        blurBackground(true);
+        resultsPane.setVisible(true);
+        resultsPane.setDisable(false);
+        resultsPane.setOpacity(100);
+        if(wpm > wpmRecord) {
+            wpmRecord = wpm;
+            bestWPM.setText(Math.round(wpm) + "WPM");
+        }
+        if(accuracy > accuracyRecord) {
+            accuracyRecord = accuracy;
+            bestAccuracy.setText(Math.round(accuracy) + "% accuracy");
+        }
+        wpmResult.setText(wpm + "WPM");
+        accuracyResult.setText(accuracy + "% accuracy");
+        bestWPM.setText(String.valueOf(wpmRecord));
+        bestAccuracy.setText(String.valueOf(accuracyRecord));
+    }
     public void updatePromptLabel() {
         promptLabel.setText(promptContents.substring(promptIndex, promptIndex + 208));
         promptIndex += 104;
     }
     public void beginTimer() {
-        clearCharList();
         inputField.clear();
         timeRemaining = (int) Math.round(minutes * 60);
         setTimerLabel(timeRemaining);
@@ -118,7 +137,6 @@ public class SceneController extends Calculations implements Initializable {
         timeline.setCycleCount(timeRemaining);
         timeline.play();
     }
-
     public void changeColorTheme(ActionEvent e) {
         colorTheme = colorPicker.getValue();
         inputField.setEffect(new DropShadow(20, colorTheme));
@@ -134,30 +152,19 @@ public class SceneController extends Calculations implements Initializable {
         button2.setTextFill(colorTheme);
         button3.setTextFill(colorTheme);
     }
-
-    public void setDifficulty(ActionEvent e) {
-        reset();
-        promptLabel.setText((PromptText.generatePrompt(difficultyChoice.getValue())));
-        promptContents = promptLabel.getText();
-    }
-
-    public void onKeyTyped() {
-        if (inputField.getText().length() > promptIndex) {
-            updatePromptLabel();
-        }
-    }
-
     public void popupButtonPressed() {
         blurBackground(false);
         popupPane.setDisable(true);
         popupPane.setOpacity(0);
+        resultsPane.setDisable(true);
+        resultsPane.setOpacity(0);
+        reset();
     }
-
     public void blurBackground(boolean b) {
         GaussianBlur gaussianBlur = new GaussianBlur(10);
         if(b) {
             for(Node node : anchorPane.getChildrenUnmodifiable()) {
-                if(node != popupPane) {
+                if(node != popupPane && node != resultsPane) {
                     if(node.getEffect() == null) {
                         node.setEffect(gaussianBlur);
                     } else {
@@ -177,13 +184,12 @@ public class SceneController extends Calculations implements Initializable {
             }
         }
     }
-
     public void stop() {
         timeline.stop();
         timeRemaining = (int) Math.round(minutes * 60);
         setTimerLabel(timeRemaining);
+        promptIndex = 104;
     }
-
     public void reset() {
         stop();
         inputField.clear();
@@ -192,19 +198,23 @@ public class SceneController extends Calculations implements Initializable {
         minutes = 0.5;
         setTimerLabel(30);
     }
-
     public void button2Pressed() {
         minutes = 1.0;
         setTimerLabel(60);
     }
-
     public void button3Pressed() {
         minutes = 3.0;
         setTimerLabel(180);
     }
-
-    public static String getUserContent() {
-        return contents;
+    public void setDifficulty(ActionEvent e) {
+        reset();
+        promptLabel.setText((PromptText.generatePrompt(difficultyChoice.getValue())));
+        promptContents = promptLabel.getText();
     }
-
+    public void onKeyTyped() {
+        if (inputField.getText().length() > promptIndex) {
+            updatePromptLabel();
+        }
+    }
+    public static String getUserContent() {return contents;}
 }
