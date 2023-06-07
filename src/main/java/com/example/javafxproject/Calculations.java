@@ -3,6 +3,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Calculations {
+    //calculates WPM
     public static double getWPM(int timeElapsed) {
 
         ArrayList<String> words = new ArrayList<>(List.of(SceneController.getUserContent().split(" ")));
@@ -10,11 +11,14 @@ public class Calculations {
         return Math.round(length * ((double) 60 / timeElapsed));
     }
 
+    //returns an arraylist of all words in the passage
     public static ArrayList<String> getPromptWords(String prompt) {
         return new ArrayList<>(List.of(prompt.split(" ")));
     }
 
+    //calculates user accuracy
     public static double getAccuracy(String passage, String userInput) {
+        //for each character in user input, true = exists in passage, false = does not exist in passage
         boolean[] alreadyMatched = new boolean[userInput.length()];
         int charsCorrect = 0;
 
@@ -30,6 +34,4 @@ public class Calculations {
         }
         return ((double) charsCorrect / userInput.length()) * 100;
     }
-
-    public int getCurrentPromptRow(int currIndex) { return currIndex / 66 + 1; }
 }
