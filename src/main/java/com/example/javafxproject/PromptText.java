@@ -3,14 +3,17 @@ import java.io.FileReader;
 
 
 public class PromptText {
+
+    //uses Math.random() and file reading to randomly generate a text prompt
     public static String generatePrompt(String choice) {
 
         if (choice.equals("Easy")) //LEVEL 1 DIFFICULTY
         {
             StringBuilder easyPrompt = new StringBuilder();
             try {
-                FileReader reader = new FileReader("C:\\Users\\Noah\\IdeaProjects\\javaFXPROJECT\\src\\main\\java\\com\\example\\javafxproject\\easyPrompt.txt");
+                FileReader reader = new FileReader("C:\\Users\\24gordonno\\IdeaProjects\\apcsa-Final-Project\\src\\main\\java\\com\\example\\javafxproject\\easyPrompt.txt");
                 int data = reader.read();
+                //while reader is not at the end of the file
                 while (data != -1) {
                     easyPrompt.append((char) data);
                     data = reader.read();
@@ -28,8 +31,9 @@ public class PromptText {
         {
             StringBuilder medPrompt = new StringBuilder();
             try {
-                FileReader reader = new FileReader("C:\\Users\\Noah\\IdeaProjects\\javaFXPROJECT\\src\\main\\java\\com\\example\\javafxproject\\mediumPrompt.txt");
+                FileReader reader = new FileReader("C:\\Users\\24gordonno\\IdeaProjects\\apcsa-Final-Project\\src\\main\\java\\com\\example\\javafxproject\\mediumPrompt.txt");
                 int data = reader.read();
+                //while reader is not at the end of the file
                 while (data != -1) {
                     medPrompt.append((char) data);
                     data = reader.read();
@@ -47,8 +51,9 @@ public class PromptText {
         {
             StringBuilder extremePrompt = new StringBuilder();
             try {
-                FileReader reader = new FileReader("C:\\Users\\Noah\\IdeaProjects\\javaFXPROJECT\\src\\main\\java\\com\\example\\javafxproject\\extremePrompt.txt");
+                FileReader reader = new FileReader("C:\\Users\\24gordonno\\IdeaProjects\\apcsa-Final-Project\\src\\main\\java\\com\\example\\javafxproject\\extremePrompt.txt");
                 int data = reader.read();
+                //while reader is not at the end of the file
                 while (data != -1) {
                     extremePrompt.append((char) data);
                     data = reader.read();
