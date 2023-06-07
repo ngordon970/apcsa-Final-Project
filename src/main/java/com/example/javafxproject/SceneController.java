@@ -22,6 +22,7 @@ import java.util.ResourceBundle;
 
 public class SceneController extends Calculations implements Initializable {
 
+    //declares all attributes, connects them with FXML file using @FXML
     @FXML
     TextArea inputField;
     @FXML
@@ -53,6 +54,7 @@ public class SceneController extends Calculations implements Initializable {
     private double wpmRecord = 0;
     private double accuracyRecord = 0;
 
+    //timeline is called once per second
     Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(1), e -> {
         if (timeRemaining > 0) {
             contents = inputField.getText();
@@ -75,6 +77,8 @@ public class SceneController extends Calculations implements Initializable {
             showResults();
         }
     }));
+
+    //initialize method is called before anything else in the program
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         resultsPane.setVisible(false);
@@ -94,6 +98,8 @@ public class SceneController extends Calculations implements Initializable {
         }
         blurBackground(true);
     }
+
+    //calculates and displays timer
     public void setTimerLabel(int num) {
         if(num < 60) {
             if(num < 10) {
@@ -106,6 +112,8 @@ public class SceneController extends Calculations implements Initializable {
             timerLabel.setText(num/60 + ":0" + num % 60);
         } else timerLabel.setText(num/60 + ":" + num % 60);
     }
+
+    //displays the results pane
     public void showResults() {
         blurBackground(true);
         resultsPane.setVisible(true);
@@ -113,21 +121,26 @@ public class SceneController extends Calculations implements Initializable {
         resultsPane.setOpacity(100);
         if(wpm > wpmRecord) {
             wpmRecord = wpm;
-            bestWPM.setText(Math.round(wpm) + "WPM");
+            bestWPM.setText(Math.round(wpm) + " WPM");
+        } else {
+            bestWPM.setText(String.valueOf(Math.round(wpmRecord) + " WPM"));
         }
         if(accuracy > accuracyRecord) {
             accuracyRecord = accuracy;
             bestAccuracy.setText(Math.round(accuracy) + "% accuracy");
+        } else {
+            bestAccuracy.setText(String.valueOf(Math.round(accuracyRecord) + "% accuracy"));
         }
-        wpmResult.setText(Math.round(wpm) + "WPM");
+        wpmResult.setText(Math.round(wpm) + " WPM");
         accuracyResult.setText(Math.round(accuracy) + "% accuracy");
-        bestWPM.setText(String.valueOf(wpmRecord));
-        bestAccuracy.setText(String.valueOf(accuracyRecord));
     }
+
+    //auto-scrolls the prompt text based on length of user input
     public void updatePromptLabel() {
         promptLabel.setText(promptContents.substring(promptIndex, promptIndex + 208));
         promptIndex += 104;
     }
+
     public void beginTimer() {
         inputField.clear();
         timeRemaining = (int) Math.round(minutes * 60);
@@ -137,6 +150,8 @@ public class SceneController extends Calculations implements Initializable {
         timeline.setCycleCount(timeRemaining);
         timeline.play();
     }
+
+    //updates color theme for several nodes
     public void changeColorTheme(ActionEvent e) {
         colorTheme = colorPicker.getValue();
         inputField.setEffect(new DropShadow(20, colorTheme));
@@ -152,6 +167,8 @@ public class SceneController extends Calculations implements Initializable {
         button2.setTextFill(colorTheme);
         button3.setTextFill(colorTheme);
     }
+
+    //connected to the exit button on the initial popup pane
     public void popupButtonPressed() {
         blurBackground(false);
         popupPane.setDisable(true);
@@ -160,6 +177,8 @@ public class SceneController extends Calculations implements Initializable {
         resultsPane.setOpacity(0);
         reset();
     }
+
+    //loops through and blurs every node in the pane except for the popup pane
     public void blurBackground(boolean b) {
         GaussianBlur gaussianBlur = new GaussianBlur(10);
         if(b) {
@@ -184,6 +203,8 @@ public class SceneController extends Calculations implements Initializable {
             }
         }
     }
+
+    //stops timeline from being called
     public void stop() {
         timeline.stop();
         timeRemaining = (int) Math.round(minutes * 60);
@@ -206,11 +227,15 @@ public class SceneController extends Calculations implements Initializable {
         minutes = 3.0;
         setTimerLabel(180);
     }
+
+    //sets prompt difficulty
     public void setDifficulty(ActionEvent e) {
         reset();
         promptLabel.setText((PromptText.generatePrompt(difficultyChoice.getValue())));
         promptContents = promptLabel.getText();
     }
+
+    //updates every time a key is typed in text area
     public void onKeyTyped() {
         if (inputField.getText().length() > promptIndex) {
             updatePromptLabel();
