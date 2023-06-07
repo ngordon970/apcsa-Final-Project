@@ -295,7 +295,7 @@
                   <Font name="System Bold" size="21.0" />
                </font>
             </Label>
-            <Label fx:id="bestAccuracy" layoutX="333.0" layoutY="152.0" text="99% ACCURACY" textFill="#ebebeb">
+            <Label fx:id="bestAccuracy" layoutX="333.0" layoutY="152.0" prefHeight="31.0" prefWidth="202.0" text="99% ACCURACY" textFill="#ebebeb">
                <font>
                   <Font name="System Bold" size="21.0" />
                </font>
