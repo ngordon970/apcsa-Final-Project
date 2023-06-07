@@ -119,8 +119,8 @@ public class SceneController extends Calculations implements Initializable {
             accuracyRecord = accuracy;
             bestAccuracy.setText(Math.round(accuracy) + "% accuracy");
         }
-        wpmResult.setText(wpm + "WPM");
-        accuracyResult.setText(accuracy + "% accuracy");
+        wpmResult.setText(Math.round(wpm) + "WPM");
+        accuracyResult.setText(Math.round(accuracy) + "% accuracy");
         bestWPM.setText(String.valueOf(wpmRecord));
         bestAccuracy.setText(String.valueOf(accuracyRecord));
     }
